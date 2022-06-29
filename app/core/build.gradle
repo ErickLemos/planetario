@@ -1,0 +1,38 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.1'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'com.ericklemos'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+bootJar {
+    enabled = false
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation "org.mapstruct:mapstruct:1.5.0.RC1"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.0.RC1"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.5.0.RC1"
+
+    implementation project(':app:domain')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

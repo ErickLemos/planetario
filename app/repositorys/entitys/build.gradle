@@ -14,22 +14,27 @@ configurations {
     }
 }
 
+bootJar {
+    enabled = false
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation "org.mapstruct:mapstruct:1.5.0.RC1"
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.5.0.RC1"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:1.5.0.RC1"
+
+    implementation project(':app:core')
+    implementation project(':app:domain')
 }
 
 tasks.named('test') {

@@ -1,1 +1,10 @@
 rootProject.name = 'planetario'
+include 'app:application'
+include 'app:core'
+include 'app:domain'
+include 'app:infra'
+include 'app:rest'
+
+include 'app:repositorys:entitys'
+
+include 'app:business:planeta'
