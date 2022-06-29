@@ -8,3 +8,4 @@ include 'app:rest'
 include 'app:repositorys:entitys'
 
 include 'app:business:planeta'
+include 'app:business:vida'
