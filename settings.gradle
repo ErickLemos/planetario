@@ -6,6 +6,7 @@ include 'app:infra'
 include 'app:rest'
 
 include 'app:repositorys:entitys'
+include 'app:repositorys:planeta'
 
 include 'app:business:planeta'
 include 'app:business:vida'
