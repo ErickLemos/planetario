@@ -1,5 +1,6 @@
 package com.ericklemos.planetario.core.utils.validator;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -11,7 +12,7 @@ public interface Validator<T> {
 
     Supplier<T> supplier(T p);
 
-    default Validator<T> addValidacao(Predicate<T> predicate, String errorMessage) {
+    default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return p -> {
             try {
                 supplier(p).get();
@@ -25,7 +26,7 @@ public interface Validator<T> {
                     };
                 }
             } catch (ValidationException validationException) {
-                if (!predicate.test(p)) {
+                if (Optional.ofNullable(p).isPresent() && !predicate.test(p)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
                 }
                 return () -> {
