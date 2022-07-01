@@ -2,6 +2,7 @@ package com.ericklemos.planetario;
 
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.core.utils.CommandContext;
+import com.ericklemos.planetario.core.utils.validator.ValidationException;
 import com.ericklemos.planetario.templates.PlanetaTemplate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +41,15 @@ class AdicionarPlanetaCommandImplTest {
 
         verify(repository, times(1))
                 .salvar(any(Planeta.class));
+
+    }
+
+    @Test
+    @DisplayName("disparar exception caso planeta seja nulo")
+    void validarPlaneta() {
+
+        assertThrows(ValidationException.class,
+                () -> command.process(new CommandContext()));
 
     }
 
