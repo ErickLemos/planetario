@@ -1,22 +1,45 @@
 package com.ericklemos.planetario;
 
+import com.ericklemos.planetario.repositorys.PlanetaRepository;
+import com.ericklemos.planetario.templates.PlanetaTemplate;
+import com.ericklemos.planetario.utils.CommandContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
-@DisplayName("testes no fluxo de adicao de planetas")
 class AdicionarPlanetaCommandImplTest {
 
     @InjectMocks
     private AdicionarPlanetaCommandImpl command;
 
+    @Mock
+    private PlanetaRepository repository;
+
     @Test
     @DisplayName("sucesso")
     void sucesso() {
-        // TODO: implementar testes
+
+        var planeta = PlanetaTemplate.load();
+        planeta.setId(null);
+
+        when(repository.salvar(any(Planeta.class)))
+                .thenReturn(PlanetaTemplate.load());
+
+        var resultado = command.process(new CommandContext(planeta));
+
+        assertEquals("id", resultado.getId());
+        assertEquals("Terra", resultado.getNome());
+
+        verify(repository, times(1))
+                .salvar(any(Planeta.class));
+
     }
 
 }
