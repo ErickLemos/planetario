@@ -1,8 +1,8 @@
 package com.ericklemos.planetario;
 
-import com.ericklemos.planetario.commands.AdicionarPlanetaCommand;
-import com.ericklemos.planetario.repositorys.PlanetaRepository;
-import com.ericklemos.planetario.utils.CommandContext;
+import com.ericklemos.planetario.core.commands.AdicionarPlanetaCommand;
+import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
+import com.ericklemos.planetario.core.utils.CommandContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;

@@ -1,4 +1,4 @@
-package com.ericklemos.planetario.utils;
+package com.ericklemos.planetario.core.utils;
 
 import java.util.List;
 import java.util.Optional;

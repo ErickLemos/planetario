@@ -1,8 +1,8 @@
 package com.ericklemos.planetario;
 
-import com.ericklemos.planetario.repositorys.PlanetaRepository;
+import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
+import com.ericklemos.planetario.core.utils.CommandContext;
 import com.ericklemos.planetario.templates.PlanetaTemplate;
-import com.ericklemos.planetario.utils.CommandContext;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

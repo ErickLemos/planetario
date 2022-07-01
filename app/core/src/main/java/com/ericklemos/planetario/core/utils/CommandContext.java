@@ -1,4 +1,4 @@
-package com.ericklemos.planetario.utils;
+package com.ericklemos.planetario.core.utils;
 
 import java.util.HashMap;
 import java.util.Optional;
