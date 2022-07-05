@@ -1,22 +1,20 @@
 package com.ericklemos.planetario.core.utils.validator;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public interface Validator<T> {
 
-    static <R> Validator<R> ofType(Class<R> valor) {
-        return p -> () -> (R) valor;
+    static <T> Validator<T> ofType(Class<T> tipo) {
+        return p -> () -> tipo.cast(p);
     }
 
     ValidatorSupplier<T> supplier(T p);
 
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return objeto -> {
-
-            cancelarCasoObjetoSejaNulo(objeto);
-
             try {
                 supplier(objeto).get();
                 if (predicate.test(objeto)) {
@@ -34,20 +32,21 @@ public interface Validator<T> {
                 }
                 return () -> {
                     var mensagemException = validationException.getMessage() + ", " + errorMessage;
-                    throw new ValidationException(validationException, mensagemException);
+                    var exception = new ValidationException(validationException, mensagemException);
+
+                    Arrays.stream(validationException.getSuppressed()).forEach(exception::addSuppressed);
+
+                    throw exception;
                 };
             }
         };
     }
 
-    private void cancelarCasoObjetoSejaNulo(T objeto) {
-        if (Optional.ofNullable(objeto).isEmpty()) {
-            throw new ValidationException("objeto não pode ser nulo");
-        }
-    }
-
     interface ValidatorSupplier<T> extends Supplier<T> {
         default T validar() {
+            if (Optional.ofNullable(get()).isEmpty()) {
+                throw new ValidationException("objeto não pode ser nulo");
+            }
             return get();
         }
     }

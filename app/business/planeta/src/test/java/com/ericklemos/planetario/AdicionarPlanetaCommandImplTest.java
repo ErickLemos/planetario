@@ -48,8 +48,10 @@ class AdicionarPlanetaCommandImplTest {
     @DisplayName("disparar exception caso planeta seja nulo")
     void validarPlaneta() {
 
+        var context = new CommandContext();
+
         assertThrows(ValidationException.class,
-                () -> command.process(new CommandContext()));
+                () -> command.process(context));
 
     }
 
