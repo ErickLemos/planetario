@@ -45,6 +45,24 @@ class AdicionarPlanetaCommandImplTest {
     }
 
     @Test
+    @DisplayName("disparar exception caso repository apresente falha")
+    void validarRepository() {
+
+        var planeta = PlanetaTemplate.load();
+        var context = new CommandContext(planeta);
+
+        when(repository.salvar(any(Planeta.class)))
+                .thenThrow(RuntimeException.class);
+
+        assertThrows(RuntimeException.class,
+                () -> command.process(context));
+
+        verify(repository, times(1))
+                .salvar(any(Planeta.class));
+
+    }
+
+    @Test
     @DisplayName("disparar exception caso planeta seja nulo")
     void validarPlaneta() {
 
