@@ -16,20 +16,24 @@ public interface Validator<T> {
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return objeto -> {
             try {
+
                 supplier(objeto).get();
                 if (predicate.test(objeto)) {
                     return () -> objeto;
-                } else {
-                    return () -> {
-                        var exception = new ValidationException("Objeto nao e valido: " + errorMessage);
-                        exception.addSuppressed(new IllegalArgumentException(errorMessage));
-                        throw exception;
-                    };
                 }
+
+                return () -> {
+                    var exception = new ValidationException("Objeto nao e valido: " + errorMessage);
+                    exception.addSuppressed(new IllegalArgumentException(errorMessage));
+                    throw exception;
+                };
+
             } catch (ValidationException validationException) {
+
                 if (!predicate.test(objeto)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
                 }
+
                 return () -> {
                     var mensagemException = validationException.getMessage() + ", " + errorMessage;
                     var exception = new ValidationException(validationException, mensagemException);
@@ -38,6 +42,7 @@ public interface Validator<T> {
 
                     throw exception;
                 };
+
             }
         };
     }
