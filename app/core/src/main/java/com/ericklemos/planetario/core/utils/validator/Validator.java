@@ -26,14 +26,13 @@ public interface Validator<T> {
             try {
 
                 supplier(valor).get();
+
                 if (predicate.test(valor)) {
                     return () -> valor;
                 }
 
                 return () -> {
-                    var exception = new ValidationException("Objeto nao e valido: " + errorMessage);
-                    exception.addSuppressed(new IllegalArgumentException(errorMessage));
-                    throw exception;
+                    throw buildException(errorMessage);
                 };
 
             } catch (ValidationException validationException) {
@@ -43,16 +42,24 @@ public interface Validator<T> {
                 }
 
                 return () -> {
-                    var mensagemException = validationException.getMessage() + ", " + errorMessage;
-                    var exception = new ValidationException(validationException, mensagemException);
-
-                    Arrays.stream(validationException.getSuppressed()).forEach(exception::addSuppressed);
-
-                    throw exception;
+                    throw buildException(errorMessage, validationException);
                 };
 
             }
         };
+    }
+
+    private ValidationException buildException(String errorMessage) {
+        var exception = new ValidationException("Objeto nao e valido: " + errorMessage);
+        exception.addSuppressed(new IllegalArgumentException(errorMessage));
+        return exception;
+    }
+
+    private ValidationException buildException(String errorMessage, ValidationException validationException) {
+        var mensagemException = validationException.getMessage() + ", " + errorMessage;
+        var exception = new ValidationException(validationException, mensagemException);
+        Arrays.stream(validationException.getSuppressed()).forEach(exception::addSuppressed);
+        return exception;
     }
 
     interface ValidatorSupplier<T> extends Supplier<T> {
