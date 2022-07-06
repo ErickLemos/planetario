@@ -14,12 +14,20 @@ public interface Validator<T> {
     ValidatorSupplier<T> supplier(T p);
 
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
-        return objeto -> {
+        return addRegraBase(predicate, errorMessage, false);
+    }
+
+    default Validator<T> addRegra(Predicate<T> predicate, String errorMessage, boolean eCritico) {
+        return addRegraBase(predicate, errorMessage, eCritico);
+    }
+
+    private Validator<T> addRegraBase(Predicate<T> predicate, String errorMessage, boolean eCritico) {
+        return valor -> {
             try {
 
-                supplier(objeto).get();
-                if (predicate.test(objeto)) {
-                    return () -> objeto;
+                supplier(valor).get();
+                if (predicate.test(valor)) {
+                    return () -> valor;
                 }
 
                 return () -> {
@@ -30,7 +38,7 @@ public interface Validator<T> {
 
             } catch (ValidationException validationException) {
 
-                if (!predicate.test(objeto)) {
+                if (!predicate.test(valor)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
                 }
 
