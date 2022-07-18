@@ -11,6 +11,10 @@ public class CommandContext extends HashMap<String, Object> {
         return new CommandContext(data);
     }
 
+    public static CommandContext empty() {
+        return new CommandContext();
+    }
+
     public CommandContext() {
         super();
     }
