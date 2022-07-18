@@ -1,5 +1,6 @@
 package com.ericklemos.planeta.mappers;
 
+import com.ericklemos.planetario.mappers.PlanetaEntityMapper;
 import com.ericklemos.planetario.templates.PlanetaEntityTemplate;
 import com.ericklemos.planetario.templates.PlanetaTemplate;
 import org.junit.jupiter.api.DisplayName;

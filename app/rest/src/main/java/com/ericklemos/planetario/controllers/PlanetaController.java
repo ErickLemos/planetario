@@ -1,6 +1,8 @@
 package com.ericklemos.planetario.controllers;
 
 import com.ericklemos.planetario.core.commands.AdicionarPlanetaCommand;
+import com.ericklemos.planetario.core.utils.CommandContext;
+import com.ericklemos.planetario.mappers.PlanetaDtoMapper;
 import com.ericklemos.planetario.models.PlanetaDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,13 @@ public class PlanetaController {
 
     @PostMapping
     public ResponseEntity<PlanetaDto> salvar(@RequestBody PlanetaDto dto) {
-        return null;
+
+        var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dto);
+        var planetaSalvo = adicionarPlanetaCommand.process(CommandContext.of(planeta));
+        var planetaDto = PlanetaDtoMapper.INSTANCE.mapFrom(planetaSalvo);
+
+        return ResponseEntity.ok(planetaDto);
+
     }
 
     @PutMapping("{id}")

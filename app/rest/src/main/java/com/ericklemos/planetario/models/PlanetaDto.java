@@ -10,6 +10,9 @@ import lombok.*;
 @AllArgsConstructor
 public class PlanetaDto {
 
+    @JsonProperty("id")
+    private String id;
+
     @JsonProperty("nome")
     private String nome;
 

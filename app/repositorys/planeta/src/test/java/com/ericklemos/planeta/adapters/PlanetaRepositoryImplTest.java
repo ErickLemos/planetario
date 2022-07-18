@@ -1,7 +1,8 @@
 package com.ericklemos.planeta.adapters;
 
-import com.ericklemos.planeta.repository.PlanetaRepositoryMongo;
+import com.ericklemos.planetario.adapters.PlanetaRepositoryImpl;
 import com.ericklemos.planetario.entitys.PlanetaEntity;
+import com.ericklemos.planetario.repository.PlanetaRepositoryMongo;
 import com.ericklemos.planetario.templates.PlanetaEntityTemplate;
 import com.ericklemos.planetario.templates.PlanetaTemplate;
 import org.junit.jupiter.api.DisplayName;

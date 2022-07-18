@@ -1,4 +1,4 @@
-package com.ericklemos.planeta.repository;
+package com.ericklemos.planetario.repository;
 
 import com.ericklemos.planetario.entitys.PlanetaEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
