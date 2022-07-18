@@ -30,6 +30,7 @@ dependencies {
     implementation project(':app:rest')
 
     implementation project(':app:repositorys:entitys')
+    implementation project(':app:repositorys:planeta')
 
     implementation project(':app:business:planeta')
 }
