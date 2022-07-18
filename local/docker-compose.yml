@@ -10,3 +10,9 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+
+  sonarqube:
+    image: sonarqube
+    restart: always
+    ports:
+      - "9000:9000"

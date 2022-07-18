@@ -34,5 +34,18 @@ dependencies {
 }
 
 tasks.named('test') {
+    finalizedBy jacocoTestReport
     useJUnitPlatform()
+}
+
+tasks.named('compileTestJava') {
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }

@@ -1,0 +1,57 @@
+plugins {
+    id "org.sonarqube" version "3.4.0.2513"
+    id "jacoco"
+}
+
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property 'sonar.host.url', 'http://localhost:9000'
+        property 'sonar.projectKey', 'local'
+    }
+}
+
+subprojects {
+    apply plugin: 'jacoco'
+
+    sonarqube {
+        properties {
+            property "sonar.sources", "src/main"
+            property "sonar.tests", "src/test"
+        }
+    }
+}
+
+jacoco {
+    reportsDirectory = layout.buildDirectory.dir('/jacoco')
+}
+
+project("app:application") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+project("app:core") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+project("app:domain") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+project("app:infra") {
+    sonarqube {
+        skipProject = true
+    }
+}
+
+project("app:repositorys:entitys") {
+    sonarqube {
+        skipProject = true
+    }
+}
