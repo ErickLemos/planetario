@@ -1,6 +1,6 @@
 package com.ericklemos.planetario.controllers;
 
-import com.ericklemos.planetario.core.commands.AdicionarPlanetaCommand;
+import com.ericklemos.planetario.core.commands.SalvarPlanetaCommand;
 import com.ericklemos.planetario.core.utils.CommandContext;
 import com.ericklemos.planetario.mappers.PlanetaDtoMapper;
 import com.ericklemos.planetario.models.PlanetaDto;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("planetas")
 public class PlanetaController {
 
-    private final AdicionarPlanetaCommand adicionarPlanetaCommand;
+    private final SalvarPlanetaCommand salvarPlanetaCommand;
 
     @GetMapping
     public ResponseEntity<PlanetaDto> getAll() {
@@ -29,7 +29,7 @@ public class PlanetaController {
     public ResponseEntity<PlanetaDto> salvar(@RequestBody PlanetaDto dto) {
 
         var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dto);
-        var planetaSalvo = adicionarPlanetaCommand.process(CommandContext.of(planeta));
+        var planetaSalvo = salvarPlanetaCommand.process(CommandContext.of(planeta));
         var planetaDto = PlanetaDtoMapper.INSTANCE.mapFrom(planetaSalvo);
 
         return ResponseEntity.ok(planetaDto);

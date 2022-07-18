@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AdicionarPlanetaCommandImplTest {
+class SalvarPlanetaCommandImplTest {
 
     @InjectMocks
-    private AdicionarPlanetaCommandImpl command;
+    private SalvarPlanetaCommandImpl command;
 
     @Mock
     private PlanetaRepository repository;

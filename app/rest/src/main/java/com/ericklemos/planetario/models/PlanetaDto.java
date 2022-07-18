@@ -16,4 +16,6 @@ public class PlanetaDto {
     @JsonProperty("nome")
     private String nome;
 
+    // string
+
 }
