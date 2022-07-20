@@ -15,6 +15,5 @@ public class PlanetaEntity {
     @Id
     private String id;
     private String nome;
-    private String sobrenome;
 
 }

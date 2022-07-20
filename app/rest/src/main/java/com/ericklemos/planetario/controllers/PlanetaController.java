@@ -50,12 +50,13 @@ public class PlanetaController {
 
     @PostMapping
     public ResponseEntity<PlanetaDto> salvar(@RequestBody PlanetaDto dto) {
-        return salvarBase(dto);
-    }
 
-    @PutMapping("{id}")
-    public ResponseEntity<PlanetaDto> editar(@RequestBody PlanetaDto dto) {
-        return salvarBase(dto);
+        var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dto);
+        var planetaSalvo = salvarPlanetaCommand.process(CommandContext.of(planeta));
+        var planetaDto = PlanetaDtoMapper.INSTANCE.mapFrom(planetaSalvo);
+
+        return ResponseEntity.ok(planetaDto);
+
     }
 
     @DeleteMapping("{id}")
@@ -65,13 +66,6 @@ public class PlanetaController {
 
         return ResponseEntity.ok(mensagem);
 
-    }
-
-    private ResponseEntity<PlanetaDto> salvarBase(PlanetaDto dto) {
-        var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dto);
-        var planetaSalvo = salvarPlanetaCommand.process(CommandContext.of(planeta));
-        var planetaDto = PlanetaDtoMapper.INSTANCE.mapFrom(planetaSalvo);
-        return ResponseEntity.ok(planetaDto);
     }
 
 }
