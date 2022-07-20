@@ -1,4 +1,6 @@
-package com.ericklemos.planetario.core.utils.validator;
+package com.ericklemos.planetario.core.utils;
+
+import com.ericklemos.planetario.core.exceptions.ValidationException;
 
 import java.util.Arrays;
 import java.util.Optional;

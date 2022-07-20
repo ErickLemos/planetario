@@ -5,7 +5,7 @@ import com.ericklemos.planetario.core.commands.BuscarPlanetasCommand;
 import com.ericklemos.planetario.core.commands.DeletarPlanetaCommand;
 import com.ericklemos.planetario.core.commands.SalvarPlanetaCommand;
 import com.ericklemos.planetario.core.utils.CommandContext;
-import com.ericklemos.planetario.core.utils.validator.Validator;
+import com.ericklemos.planetario.core.utils.Validator;
 import com.ericklemos.planetario.mappers.PlanetaDtoMapper;
 import com.ericklemos.planetario.models.PlanetaDto;
 import com.ericklemos.planetario.utils.Mensagem;

@@ -1,8 +1,8 @@
 package com.ericklemos.planetario;
 
+import com.ericklemos.planetario.core.exceptions.ValidationException;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.core.utils.CommandContext;
-import com.ericklemos.planetario.core.utils.validator.ValidationException;
 import com.ericklemos.planetario.templates.PlanetaTemplate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

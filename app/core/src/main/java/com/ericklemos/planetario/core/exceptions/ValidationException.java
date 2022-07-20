@@ -1,4 +1,4 @@
-package com.ericklemos.planetario.core.utils.validator;
+package com.ericklemos.planetario.core.exceptions;
 
 public class ValidationException extends RuntimeException {
 

@@ -1,6 +1,6 @@
 package com.ericklemos.planetario.utils;
 
-import com.ericklemos.planetario.core.utils.validator.ValidationException;
+import com.ericklemos.planetario.core.exceptions.ValidationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

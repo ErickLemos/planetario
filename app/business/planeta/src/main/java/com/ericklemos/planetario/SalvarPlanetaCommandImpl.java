@@ -3,7 +3,7 @@ package com.ericklemos.planetario;
 import com.ericklemos.planetario.core.commands.SalvarPlanetaCommand;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.core.utils.CommandContext;
-import com.ericklemos.planetario.core.utils.validator.Validator;
+import com.ericklemos.planetario.core.utils.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
