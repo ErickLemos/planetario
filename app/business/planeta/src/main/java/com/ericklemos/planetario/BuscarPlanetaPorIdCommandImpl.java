@@ -1,26 +1,27 @@
 package com.ericklemos.planetario;
 
-import com.ericklemos.planetario.core.commands.AdicionarPlanetaCommand;
+import com.ericklemos.planetario.core.commands.BuscarPlanetaPorIdCommand;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.core.utils.CommandContext;
-import com.ericklemos.planetario.core.utils.validator.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
-public class AdicionarPlanetaCommandImpl implements AdicionarPlanetaCommand {
+public class BuscarPlanetaPorIdCommandImpl implements BuscarPlanetaPorIdCommand {
 
     private final PlanetaRepository repository;
 
     @Override
     public Planeta process(CommandContext context) {
 
-        var planeta = Validator.ofType(Planeta.class)
-                .supplier(context.getData(Planeta.class))
-                .validar();
+        var id = Optional.ofNullable(context.getData(String.class))
+                .orElseThrow(RuntimeException::new);
 
-        return repository.salvar(planeta);
+        return repository.buscarPorId(id)
+                .orElseThrow(RuntimeException::new);
 
     }
 

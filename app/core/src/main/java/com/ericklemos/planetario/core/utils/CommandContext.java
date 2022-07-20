@@ -7,6 +7,14 @@ public class CommandContext extends HashMap<String, Object> {
 
     private static final String DATA = "data";
 
+    public static CommandContext of(Object data) {
+        return new CommandContext(data);
+    }
+
+    public static CommandContext empty() {
+        return new CommandContext();
+    }
+
     public CommandContext() {
         super();
     }

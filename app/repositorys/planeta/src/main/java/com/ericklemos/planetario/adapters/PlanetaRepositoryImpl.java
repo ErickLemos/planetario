@@ -1,9 +1,9 @@
-package com.ericklemos.planeta.adapters;
+package com.ericklemos.planetario.adapters;
 
-import com.ericklemos.planeta.mappers.PlanetaEntityMapper;
-import com.ericklemos.planeta.repository.PlanetaRepositoryMongo;
 import com.ericklemos.planetario.Planeta;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
+import com.ericklemos.planetario.mappers.PlanetaEntityMapper;
+import com.ericklemos.planetario.repository.PlanetaRepositoryMongo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
