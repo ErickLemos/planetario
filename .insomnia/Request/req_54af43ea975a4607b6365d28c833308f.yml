@@ -1,0 +1,21 @@
+_id: req_54af43ea975a4607b6365d28c833308f
+type: Request
+parentId: fld_a59ad83653a34c0fa668977a78ee9f23
+modified: 1658353056650
+created: 1658353004722
+url: "{{ _.host }}/planetas/62d5e0c0977f6532fbb5984b"
+name: deletar
+description: ""
+method: DELETE
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1658183746126
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

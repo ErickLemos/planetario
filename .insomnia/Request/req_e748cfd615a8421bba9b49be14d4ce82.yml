@@ -1,0 +1,33 @@
+_id: req_e748cfd615a8421bba9b49be14d4ce82
+type: Request
+parentId: fld_a59ad83653a34c0fa668977a78ee9f23
+modified: 1658353041370
+created: 1658183746176
+url: "{{ _.host }}/planetas"
+name: salvar
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    		"nome": "Terra Algo"
+    }
+parameters:
+  - id: pair_94bbd71d500148628fc70b20f93318ab
+    name: ""
+    value: ""
+    description: ""
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_ea7b35c96f1249808edd4bb1bb20ed2c
+authentication: {}
+metaSortKey: -1658183746176
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

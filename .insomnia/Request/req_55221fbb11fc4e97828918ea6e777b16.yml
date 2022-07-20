@@ -1,0 +1,21 @@
+_id: req_55221fbb11fc4e97828918ea6e777b16
+type: Request
+parentId: fld_a59ad83653a34c0fa668977a78ee9f23
+modified: 1658352849106
+created: 1658352827008
+url: "{{ _.host }}/planetas/62d5e0c0977f6532fbb5984b"
+name: buscar por id
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication: {}
+metaSortKey: -1658268209297.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
