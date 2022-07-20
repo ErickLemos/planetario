@@ -5,6 +5,7 @@ import com.ericklemos.planetario.core.commands.BuscarPlanetasCommand;
 import com.ericklemos.planetario.core.commands.DeletarPlanetaCommand;
 import com.ericklemos.planetario.core.commands.SalvarPlanetaCommand;
 import com.ericklemos.planetario.core.utils.CommandContext;
+import com.ericklemos.planetario.core.utils.validator.Validator;
 import com.ericklemos.planetario.mappers.PlanetaDtoMapper;
 import com.ericklemos.planetario.models.PlanetaDto;
 import com.ericklemos.planetario.utils.Mensagem;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -51,7 +53,12 @@ public class PlanetaController {
     @PostMapping
     public ResponseEntity<PlanetaDto> salvar(@RequestBody PlanetaDto dto) {
 
-        var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dto);
+        var dtoValidado = Validator.ofType(PlanetaDto.class)
+                .addRegra(item -> Objects.nonNull(item.getNome()), "nome está nulo")
+                .supplier(dto)
+                .validar();
+
+        var planeta = PlanetaDtoMapper.INSTANCE.mapFrom(dtoValidado);
         var planetaSalvo = salvarPlanetaCommand.process(CommandContext.of(planeta));
         var planetaDto = PlanetaDtoMapper.INSTANCE.mapFrom(planetaSalvo);
 
