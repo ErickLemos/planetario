@@ -13,4 +13,6 @@ public interface RepositoryBase<T> {
 
     void excluirPorId(String id);
 
+    boolean existePorId(String id);
+
 }

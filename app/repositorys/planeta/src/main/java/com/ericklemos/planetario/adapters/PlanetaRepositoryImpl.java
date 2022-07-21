@@ -16,6 +16,7 @@ import java.util.Optional;
 public class PlanetaRepositoryImpl implements PlanetaRepository {
 
     private final PlanetaRepositoryMongo repository;
+    private static final String ID_NAO_PODE_SER_NULO = "id não pode ser nulo";
 
     @Override
     public List<Planeta> buscarTodos() {
@@ -27,7 +28,7 @@ public class PlanetaRepositoryImpl implements PlanetaRepository {
 
     @Override
     public Optional<Planeta> buscarPorId(String id) {
-        Assert.notNull(id, "id não pode ser nulo");
+        Assert.notNull(id, ID_NAO_PODE_SER_NULO);
         return repository.findById(id)
                 .map(PlanetaEntityMapper.INSTANCE::mapFrom);
     }
@@ -47,8 +48,14 @@ public class PlanetaRepositoryImpl implements PlanetaRepository {
 
     @Override
     public void excluirPorId(String id) {
-        Assert.notNull(id, "id não pode ser nulo");
+        Assert.notNull(id, ID_NAO_PODE_SER_NULO);
         repository.deleteById(id);
+    }
+
+    @Override
+    public boolean existePorId(String id) {
+        Assert.notNull(id, ID_NAO_PODE_SER_NULO);
+        return repository.existsById(id);
     }
 
 }
