@@ -1,6 +1,7 @@
 package com.ericklemos.planetario.adapters;
 
 import com.ericklemos.planetario.Planeta;
+import com.ericklemos.planetario.core.exceptions.EntidadeNaoEncontradaException;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.mappers.PlanetaEntityMapper;
 import com.ericklemos.planetario.repository.PlanetaRepositoryMongo;
@@ -48,14 +49,14 @@ public class PlanetaRepositoryImpl implements PlanetaRepository {
 
     @Override
     public void excluirPorId(String id) {
-        Assert.notNull(id, ID_NAO_PODE_SER_NULO);
-        repository.deleteById(id);
-    }
 
-    @Override
-    public boolean existePorId(String id) {
         Assert.notNull(id, ID_NAO_PODE_SER_NULO);
-        return repository.existsById(id);
+
+        var planeta = repository.findById(id)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("planeta não foi encontrado"));
+
+        repository.delete(planeta);
+
     }
 
 }

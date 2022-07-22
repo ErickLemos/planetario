@@ -1,6 +1,7 @@
 package com.ericklemos.planetario;
 
 import com.ericklemos.planetario.core.commands.DeletarPlanetaCommand;
+import com.ericklemos.planetario.core.exceptions.EntidadeNaoEncontradaException;
 import com.ericklemos.planetario.core.repositorys.PlanetaRepository;
 import com.ericklemos.planetario.core.utils.CommandContext;
 import com.ericklemos.planetario.utils.Mensagem;
@@ -25,16 +26,15 @@ public class DeletarPlanetaCommandImpl implements DeletarPlanetaCommand {
         var id = Optional.ofNullable(context.getData(String.class))
                 .orElseThrow(RuntimeException::new);
 
-        log.info("02 - verificando se há planeta com id repassado: {}", id);
-        if (!planetaRepository.existePorId(id)) {
+        log.info("03 - iniciando processo de exclusao por id: {}", id);
+        try {
+            planetaRepository.excluirPorId(id);
+        } catch (EntidadeNaoEncontradaException e) {
             return Mensagem.of(
                     "ops!",
                     "planeta não foi encontrado"
             );
         }
-
-        log.info("03 - iniciando processo de exclusao por id: {}", id);
-        planetaRepository.excluirPorId(id);
 
         log.info("04 - retornando mensagem de sucesso");
         return Mensagem.of(
