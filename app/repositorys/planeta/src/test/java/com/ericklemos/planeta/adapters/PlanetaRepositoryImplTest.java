@@ -116,12 +116,20 @@ class PlanetaRepositoryImplTest {
     @DisplayName("excluirPorId: sucesso")
     void excluirPorId() {
 
-        doNothing().when(mongo).deleteById(any(String.class));
+        doNothing().when(mongo)
+                .delete(any(PlanetaEntity.class));
+
+        var planetaEntity = Optional.of(new PlanetaEntity());
+        doReturn(planetaEntity).when(mongo)
+                .findById(any(String.class));
 
         repository.excluirPorId("id");
 
         verify(mongo, times(1))
-                .deleteById(any(String.class));
+                .findById(any(String.class));
+
+        verify(mongo, times(1))
+                .delete(any(PlanetaEntity.class));
 
     }
 
