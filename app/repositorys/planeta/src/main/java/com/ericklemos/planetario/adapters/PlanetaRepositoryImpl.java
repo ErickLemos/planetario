@@ -53,7 +53,7 @@ public class PlanetaRepositoryImpl implements PlanetaRepository {
         Assert.notNull(id, ID_NAO_PODE_SER_NULO);
 
         var planeta = repository.findById(id)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("planeta não foi encontrado"));
+                .orElseThrow(EntidadeNaoEncontradaException::new);
 
         repository.delete(planeta);
 
