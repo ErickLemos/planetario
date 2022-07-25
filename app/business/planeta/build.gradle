@@ -29,6 +29,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'org.jgrapht:jgrapht-core:1.5.1'
+
     implementation project(':app:core')
     implementation project(':app:domain')
 }
