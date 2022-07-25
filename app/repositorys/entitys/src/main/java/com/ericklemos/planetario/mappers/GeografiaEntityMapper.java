@@ -18,4 +18,8 @@ public interface GeografiaEntityMapper {
     @Mapping(target = "regioes", source = "regioes")
     Geografia mapFrom(GeografiaEntity entity);
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "regioes", source = "regioes")
+    GeografiaEntity mapFrom(Geografia domain);
+
 }

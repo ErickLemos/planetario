@@ -31,6 +31,7 @@ dependencies {
 
     implementation project(':app:repositorys:entitys')
     implementation project(':app:repositorys:planeta')
+    implementation project(':app:repositorys:geografia')
 
     implementation project(':app:business:planeta')
 }

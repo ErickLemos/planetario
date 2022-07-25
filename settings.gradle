@@ -7,6 +7,7 @@ include 'app:rest'
 
 include 'app:repositorys:entitys'
 include 'app:repositorys:planeta'
+include 'app:repositorys:geografia'
 
 include 'app:business:planeta'
 include 'app:business:vida'

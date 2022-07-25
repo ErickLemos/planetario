@@ -3,7 +3,7 @@ package com.ericklemos.planetario.core.utils;
 import java.util.List;
 import java.util.Optional;
 
-public interface RepositoryBase<T> {
+public interface RepositoryBaseMulti<T> {
 
     List<T> buscarTodos();
 
