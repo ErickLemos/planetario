@@ -10,10 +10,10 @@ import java.util.function.Supplier;
 public interface Validator<T> {
 
     static <T> Validator<T> ofType(Class<T> tipo) {
-        return p -> () -> tipo.cast(p);
+        return valor -> () -> tipo.cast(valor);
     }
 
-    ValidatorSupplier<T> supplier(T p);
+    ValidatorSupplier<T> supplier(T valor);
 
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return valor -> {

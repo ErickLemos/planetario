@@ -46,6 +46,20 @@ class ValidatorTest {
     }
 
     @Test
+    @DisplayName("disparar exception caso o valor repassado no supplier seja nulo com regra")
+    void validarSupplierNuloComRegra() {
+
+        var supplier = Validator.ofType(Planeta.class)
+                .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
+                .supplier(null);
+
+        assertThrows(ValidationException.class,
+                supplier::validar,
+                "objeto não pode ser nulo");
+
+    }
+
+    @Test
     @DisplayName("disparar exception caso regras nao sejam atendidas")
     void validarRegras() {
 
