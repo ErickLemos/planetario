@@ -37,7 +37,7 @@ public interface Validator<T> {
                     throw buildException(errorMessage);
                 };
 
-            } catch (ValidationException validationException) {
+            } catch (ValidationException | NullPointerException validationException) {
 
                 if (!predicate.test(valor)) {
                     validationException.addSuppressed(new IllegalArgumentException(errorMessage));
@@ -57,7 +57,7 @@ public interface Validator<T> {
         return exception;
     }
 
-    private ValidationException buildException(String errorMessage, ValidationException validationException) {
+    private ValidationException buildException(String errorMessage, RuntimeException validationException) {
         var mensagemException = validationException.getMessage() + ", " + errorMessage;
         var exception = new ValidationException(validationException, mensagemException);
         Arrays.stream(validationException.getSuppressed()).forEach(exception::addSuppressed);
