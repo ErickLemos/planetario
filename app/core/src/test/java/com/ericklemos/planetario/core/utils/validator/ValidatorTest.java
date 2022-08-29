@@ -51,6 +51,7 @@ class ValidatorTest {
 
         var supplier = Validator.ofType(Planeta.class)
                 .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
+                .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
                 .supplier(null);
 
         assertThrows(ValidationException.class,

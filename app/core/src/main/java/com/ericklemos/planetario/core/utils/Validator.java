@@ -3,6 +3,7 @@ package com.ericklemos.planetario.core.utils;
 import com.ericklemos.planetario.core.exceptions.ValidationException;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -17,6 +18,13 @@ public interface Validator<T> {
 
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return valor -> {
+
+            if (Objects.isNull(valor)) {
+                return () -> {
+                    throw new ValidationException("objeto não pode ser nulo");
+                };
+            }
+
             try {
 
                 supplier(valor).get();
