@@ -33,6 +33,46 @@ class ValidatorTest {
     }
 
     @Test
+    @DisplayName("sucesso personalizada")
+    void sucessoPersonalziada() {
+
+        var planeta = PlanetaTemplate.load();
+
+        var planetaValidado = Validator.ofType(Planeta.class)
+                .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
+                .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
+                .supplier(planeta)
+                .validar(new RuntimeException("exception personalizada"));
+
+        assertEquals(planeta.getId(), planetaValidado.getId());
+        assertEquals(planeta.getNome(), planetaValidado.getNome());
+
+    }
+
+    @Test
+    @DisplayName("disparar exception caso regras nao sejam atendidas")
+    void validarRegras() {
+
+        var planeta = PlanetaTemplate.load();
+        planeta.setId(null);
+        planeta.setNome("Marte");
+
+        var supplier = Validator.ofType(Planeta.class)
+                .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
+                .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
+                .supplier(planeta);
+
+        var exception = assertThrows(ValidationException.class, supplier::validar);
+
+        var mapSupressException = Arrays.stream(exception.getSuppressed())
+                .collect(Collectors.toMap(Throwable::getMessage, e -> e));
+
+        assertNotNull(mapSupressException.get("id não pode ser nulo"));
+        assertNotNull(mapSupressException.get("nome precisa ser Terra"));
+
+    }
+
+    @Test
     @DisplayName("disparar exception caso o valor repassado no supplier seja nulo")
     void validarSupplierNulo() {
 
@@ -61,8 +101,8 @@ class ValidatorTest {
     }
 
     @Test
-    @DisplayName("disparar exception caso regras nao sejam atendidas")
-    void validarRegras() {
+    @DisplayName("disparar exception personalizada caso regras nao sejam atendidas")
+    void validarRegrasComExceptionPersonalizada() {
 
         var planeta = PlanetaTemplate.load();
         planeta.setId(null);
@@ -73,13 +113,10 @@ class ValidatorTest {
                 .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
                 .supplier(planeta);
 
-        var exception = assertThrows(ValidationException.class, supplier::validar);
+        assertThrows(RuntimeException.class,
+                () -> supplier.validar(new RuntimeException("exception personalizada")),
+                "exception personalizada");
 
-        var mapSupressException = Arrays.stream(exception.getSuppressed())
-                .collect(Collectors.toMap(Throwable::getMessage, e -> e));
-
-        assertNotNull(mapSupressException.get("id não pode ser nulo"));
-        assertNotNull(mapSupressException.get("nome precisa ser Terra"));
 
     }
 

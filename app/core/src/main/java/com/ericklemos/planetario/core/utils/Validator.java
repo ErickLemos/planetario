@@ -71,6 +71,17 @@ public interface Validator<T> {
             }
             return get();
         }
+
+        default T validar(RuntimeException exceptionPersonalizada) {
+            try {
+                if (Optional.ofNullable(get()).isEmpty()) {
+                    throw new ValidationException("objeto não pode ser nulo");
+                }
+                return get();
+            } catch (RuntimeException e) {
+                throw exceptionPersonalizada;
+            }
+        }
     }
 
 }
