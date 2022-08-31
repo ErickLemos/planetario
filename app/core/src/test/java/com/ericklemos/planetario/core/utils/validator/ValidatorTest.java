@@ -96,7 +96,7 @@ class ValidatorTest {
                 .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
                 .supplier(planeta);
 
-        assertThrows(RuntimeException.class,
+        assertThrows(ValidationException.class,
                 supplier::validar);
 
 
@@ -115,9 +115,10 @@ class ValidatorTest {
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
                 .supplier(planeta);
 
-        assertThrows(RuntimeException.class,
+        var exception = assertThrows(ValidationException.class,
                 supplier::validar);
 
+        assertNotNull(exception);
 
     }
 

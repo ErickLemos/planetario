@@ -34,30 +34,31 @@ public interface Validator<T> {
                 }
 
                 return () -> {
-                    throw buildException(errorMessage);
+                    throw buildExceptionInicial(errorMessage);
                 };
 
-            } catch (ValidationException | NullPointerException validationException) {
+            } catch (ValidationException validationException) {
 
-                try {
-                    if (!predicate.test(valor)) {
-                        validationException.addSuppressed(new IllegalArgumentException(errorMessage));
-                    }
-                } catch (NullPointerException nullPointerException) {
-                    return () -> {
-                        throw buildException(errorMessage, validationException);
-                    };
+                if (!predicate.test(valor)) {
+                    validationException.addSuppressed(new IllegalArgumentException(errorMessage));
                 }
 
                 return () -> {
                     throw buildException(errorMessage, validationException);
                 };
 
+            } catch (NullPointerException nullPointerException) {
+
+                nullPointerException.addSuppressed(new NullPointerException(errorMessage));
+
+                return () -> {
+                    throw buildException(errorMessage, nullPointerException);
+                };
             }
         };
     }
 
-    private ValidationException buildException(String errorMessage) {
+    private ValidationException buildExceptionInicial(String errorMessage) {
         var exception = new ValidationException("Objeto nao e valido: " + errorMessage);
         exception.addSuppressed(new IllegalArgumentException(errorMessage));
         return exception;
