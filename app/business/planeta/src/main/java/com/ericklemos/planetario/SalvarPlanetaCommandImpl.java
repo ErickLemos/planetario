@@ -17,7 +17,7 @@ public class SalvarPlanetaCommandImpl implements SalvarPlanetaCommand {
     public Planeta process(CommandContext context) {
 
         var planeta = Validator.ofType(Planeta.class)
-                .supplier(context.getData(Planeta.class))
+                .comValor(context.getData(Planeta.class))
                 .validar();
 
         return repository.salvar(planeta);

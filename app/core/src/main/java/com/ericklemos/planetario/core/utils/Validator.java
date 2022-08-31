@@ -14,7 +14,7 @@ public interface Validator<T> {
         return valor -> () -> tipo.cast(valor);
     }
 
-    ValidatorSupplier<T> supplier(T valor);
+    ValidatorSupplier<T> comValor(T valor);
 
     default Validator<T> addRegra(Predicate<T> predicate, String errorMessage) {
         return valor -> {
@@ -27,7 +27,7 @@ public interface Validator<T> {
 
             try {
 
-                supplier(valor).get();
+                comValor(valor).get();
 
                 if (predicate.test(valor)) {
                     return () -> valor;

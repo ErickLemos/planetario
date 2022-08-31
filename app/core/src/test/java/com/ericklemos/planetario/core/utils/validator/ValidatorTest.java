@@ -24,7 +24,7 @@ class ValidatorTest {
         var planetaValidado = Validator.ofType(Planeta.class)
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
                 .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
-                .supplier(planeta)
+                .comValor(planeta)
                 .validar();
 
         assertEquals(planeta.getId(), planetaValidado.getId());
@@ -43,7 +43,7 @@ class ValidatorTest {
         var supplier = Validator.ofType(Planeta.class)
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
                 .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
-                .supplier(planeta);
+                .comValor(planeta);
 
         var exception = assertThrows(ValidationException.class, supplier::validar);
 
@@ -60,7 +60,7 @@ class ValidatorTest {
     void validarSupplierNulo() {
 
         var supplier = Validator.ofType(Planeta.class)
-                .supplier(null);
+                .comValor(null);
 
         assertThrows(ValidationException.class,
                 supplier::validar,
@@ -75,7 +75,7 @@ class ValidatorTest {
         var supplier = Validator.ofType(Planeta.class)
                 .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
-                .supplier(null);
+                .comValor(null);
 
         assertThrows(ValidationException.class,
                 supplier::validar,
@@ -94,7 +94,7 @@ class ValidatorTest {
         var supplier = Validator.ofType(Planeta.class)
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
                 .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
-                .supplier(planeta);
+                .comValor(planeta);
 
         assertThrows(ValidationException.class,
                 supplier::validar);
@@ -113,7 +113,7 @@ class ValidatorTest {
         var supplier = Validator.ofType(Planeta.class)
                 .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
                 .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
-                .supplier(planeta);
+                .comValor(planeta);
 
         var exception = assertThrows(ValidationException.class,
                 supplier::validar);

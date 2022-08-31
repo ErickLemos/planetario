@@ -65,7 +65,7 @@ public class PlanetaController {
         log.info("salvar - 01 - validando valor recebido");
         var dtoValidado = Validator.ofType(PlanetaDto.class)
                 .addRegra(item -> Objects.nonNull(item.getNome()), "nome está nulo")
-                .supplier(dto)
+                .comValor(dto)
                 .validar();
 
         log.info("salvar - 02 - mapeando dto para domain");
