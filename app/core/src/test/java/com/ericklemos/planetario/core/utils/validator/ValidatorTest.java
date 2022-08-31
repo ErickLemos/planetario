@@ -33,23 +33,6 @@ class ValidatorTest {
     }
 
     @Test
-    @DisplayName("sucesso personalizada")
-    void sucessoPersonalziada() {
-
-        var planeta = PlanetaTemplate.load();
-
-        var planetaValidado = Validator.ofType(Planeta.class)
-                .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
-                .addRegra(item -> Objects.nonNull(item.getNome()), "nome não pode ser nulo")
-                .supplier(planeta)
-                .validar(new RuntimeException("exception personalizada"));
-
-        assertEquals(planeta.getId(), planetaValidado.getId());
-        assertEquals(planeta.getNome(), planetaValidado.getNome());
-
-    }
-
-    @Test
     @DisplayName("disparar exception caso regras nao sejam atendidas")
     void validarRegras() {
 
@@ -114,8 +97,26 @@ class ValidatorTest {
                 .supplier(planeta);
 
         assertThrows(RuntimeException.class,
-                () -> supplier.validar(new RuntimeException("exception personalizada")),
-                "exception personalizada");
+                supplier::validar);
+
+
+    }
+
+    @Test
+    @DisplayName("disparar exception personalizada caso regras nao sejam atendidas, com todos nulos")
+    void validarRegrasComExceptionPersonalizadaNulos() {
+
+        var planeta = PlanetaTemplate.load();
+        planeta.setId(null);
+        planeta.setNome(null);
+
+        var supplier = Validator.ofType(Planeta.class)
+                .addRegra(item -> item.getNome().equals("Terra"), "nome precisa ser Terra")
+                .addRegra(item -> Objects.nonNull(item.getId()), "id não pode ser nulo")
+                .supplier(planeta);
+
+        assertThrows(RuntimeException.class,
+                supplier::validar);
 
 
     }

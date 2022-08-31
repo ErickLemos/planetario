@@ -39,8 +39,14 @@ public interface Validator<T> {
 
             } catch (ValidationException | NullPointerException validationException) {
 
-                if (!predicate.test(valor)) {
-                    validationException.addSuppressed(new IllegalArgumentException(errorMessage));
+                try {
+                    if (!predicate.test(valor)) {
+                        validationException.addSuppressed(new IllegalArgumentException(errorMessage));
+                    }
+                } catch (NullPointerException nullPointerException) {
+                    return () -> {
+                        throw buildException(errorMessage, validationException);
+                    };
                 }
 
                 return () -> {
@@ -64,23 +70,13 @@ public interface Validator<T> {
         return exception;
     }
 
+
     interface ValidatorSupplier<T> extends Supplier<T> {
         default T validar() {
             if (Optional.ofNullable(get()).isEmpty()) {
                 throw new ValidationException("objeto não pode ser nulo");
             }
             return get();
-        }
-
-        default T validar(RuntimeException exceptionPersonalizada) {
-            try {
-                if (Optional.ofNullable(get()).isEmpty()) {
-                    throw new ValidationException("objeto não pode ser nulo");
-                }
-                return get();
-            } catch (RuntimeException e) {
-                throw exceptionPersonalizada;
-            }
         }
     }
 
